@@ -34,19 +34,78 @@ nonlinear interactions among firm characteristics and macroeconomic conditions?
 The initial replication dates are March 1957 through December 2016, with
 out-of-sample evaluation beginning in 1987. Do not randomly shuffle time periods.
 
-## Extension (proposed; awaiting consultation agreement)
+## Extension: Transaction costs and the economic value of machine learning
 
-Build a configurable data-availability stress-testing module. At prediction
-time, impose additional one- and three-month accounting-data delays and
-pre-specified, fixed-seed missingness scenarios. Keep trained models fixed,
-apply the baseline imputation procedure, and recompute predictions and
-portfolios. Compare predictive R-squared, stock rankings, returns, and Sharpe
-ratios in ChartBook comparison pages.
+**Status: team-selected proposal; instructor agreement and implementation pending.**
 
-This is a proposal, not an approved scope or a completed implementation.
-After the consultation, record the agreed scenarios, models, acceptance
-criteria, computing reductions, and meeting date in this section. The sample
-update and this extension are separate deliverables.
+### Research question
+
+Do more complex machine-learning strategies require more trading, how is
+turnover associated with gross returns, and how much of the reported investment
+performance survives a simplified transaction-cost adjustment? The goal is to
+assess the practical economic value of machine-learning asset pricing.
+
+### Step 1: Model complexity, turnover, and gross performance
+
+Start from the replicated prediction-sorted portfolios in Tables 7 and 8.
+Compare model families and, where meaningful, within-family complexity such as
+neural-network depth. Document the complexity measures rather than assuming
+that all models have a single, unambiguous complexity ranking.
+
+Using common evaluation periods, stock universes, and weighting conventions:
+
+- Compare average monthly turnover, gross returns, and annualized Sharpe ratios.
+- Use comparison tables and scatter plots to examine whether more complex
+  strategies have higher turnover and whether turnover is associated with
+  gross performance.
+- Treat these relationships as descriptive evidence; do not assume that
+  complexity causes higher turnover or that higher turnover causes higher returns.
+
+### Step 2: Add simplified transaction costs to the original backtests
+
+Keep the baseline forecasts and portfolio-construction rules fixed. Deduct
+proportional costs from each strategy's monthly return:
+
+```text
+net_return[model, t] = gross_return[model, t] - cost_rate * traded_fraction[model, t]
+```
+
+Here, `cost_rate` is the assumed cost per dollar traded, and
+`traded_fraction` is total purchases plus sales divided by a consistently
+defined portfolio capital base. Calculate trades relative to holdings after
+return-induced weight drift, account for both long and short positions, and
+document the capital/exposure normalization. Reconcile with the paper's
+turnover definition and explicitly document any one-way/two-way conversion.
+
+Evaluate a pre-specified cost grid, provisionally 0, 5, 10, 25, and 50 basis
+points per dollar traded (1 basis point = 0.0001). Final scenarios will be
+agreed at consultation. Report results separately for the original and updated
+samples and for the weighting schemes included in the replication.
+
+Compare gross and net average returns, annualized Sharpe ratios, maximum
+drawdowns, cumulative performance, and model rankings. Estimate break-even
+trading costs where meaningful. This is a transparent cost-sensitivity exercise;
+the simplified model does not separately estimate stock-specific spreads,
+market impact, or short-borrowing costs.
+
+### Deliverables, users, and validation
+
+Provide a configurable cost-analysis module and ChartBook comparison pages
+with (i) complexity/turnover/performance exhibits, (ii) gross-versus-net
+performance tables and curves, and (iii) cost-sensitivity and break-even
+results. Researchers with the required data access should be able to rerun
+these comparisons under alternative cost assumptions.
+
+Validate that zero cost recovers baseline returns, charged costs are
+nonnegative, basis-point conversions and turnover units agree, and increasing
+the cost rate cannot increase a month's net return for fixed trades. Fix the
+scenarios and validation tolerances before inspecting results.
+
+Success means a reproducible assessment of how trading costs change the
+strategies' profitability and relative performance, regardless of whether the
+machine-learning advantage survives. Record the instructor-agreed scope,
+acceptance criteria, computing reductions, and consultation date here afterward.
+The sample update and this extension remain separate deliverables.
 
 ## Data and validation
 
