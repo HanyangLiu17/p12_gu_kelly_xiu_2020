@@ -1,0 +1,15 @@
+[project]
+name = "Empirical Asset Pricing via Machine Learning"
+description = "FINM 32800 P12: replication, sample update, and proposed data-availability stress tests. Initial scaffold; results pending."
+maintainer = "Henry Liu"
+contributors = ["Ivonne Li", "Sally Cheng", "Henry Liu", "Jiarui Feng"]
+os_compatibility = ["Windows", "Linux", "macOS"]
+requires_chartbook = ">=0.4.0"
+
+[scripts]
+build = "doit"
+
+# Register project notebooks, dataframes, and charts when their build tasks exist.
+[notebooks]
+[dataframes]
+[charts]

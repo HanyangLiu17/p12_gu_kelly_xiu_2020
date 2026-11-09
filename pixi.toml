@@ -1,0 +1,70 @@
+[project]
+name = "p12_gu_kelly_xiu_2020"
+version = "0.1.0"
+description = "FINM 32800 replication and update of Gu, Kelly, and Xiu (2020), with a proposed data-availability stress-testing extension."
+authors = ["Ivonne Li, Sally Cheng, Henry Liu, and Jiarui Feng <hanyangliu@uchicago.edu>"]
+channels = ["conda-forge"]
+platforms = ["osx-arm64", "osx-64", "linux-64", "win-64"]
+
+[dependencies]
+python = ">=3.12"
+colorama = "*"
+doit = "0.36.0"
+fabric = "3.2.2"
+holidays = "*"
+ipython = "*"
+matplotlib = "3.9.2"
+numpy = "1.26.4"
+openpyxl = "3.1.5"
+pandas-datareader = "0.10.0"
+pandas-market-calendars = "4.4.1"
+pandas = "2.2.3"
+paramiko = "3.5.0"
+plotly = "5.24.1"
+polars = ">=1.33,<2"
+pyarrow = "*"
+pytest = "8.3.3"
+python-decouple = "3.8"
+python-dotenv = "1.0.1"
+pyxlsb = "1.0.10"
+requests = "2.32.3"
+ruff = "*"
+black = "24.8.0"
+scikit-learn = "1.5.2"
+scipy = "1.12.0"
+seaborn = "0.13.2"
+statsmodels = "0.14.4"
+xlrd = "2.0.1"
+xlwings = "0.33.3"
+zstandard = "0.23.0"
+linearmodels = "6.1"
+
+# Jupyter dependencies
+jupyter = "*"
+jupyterlab = "*"
+jupytext = "*"
+notebook = "*"
+
+
+
+# WRDS data access
+jaydebeapi = "*"
+
+
+
+[pypi-dependencies]
+
+chartbook = ">=0.4.0"
+
+
+wrds = ">=3.2.0"
+
+
+[tasks]
+run = "doit"
+test = "pytest --doctest-modules"
+format = "ruff format . && ruff check --fix ."
+lint = "ruff check ."
+
+build-docs = "rm -f ./src/.pytest_cache/README.md && jupyter-book build -W ./"
+
